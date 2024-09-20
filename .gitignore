@@ -1,2 +1,14 @@
+*.txt
 
 .env
+
+/cogs
+
+.json
+
+.txt
+
+*.json
+
+__pycache__/
+*.pyc

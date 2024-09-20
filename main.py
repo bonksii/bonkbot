@@ -1,37 +1,62 @@
 import discord
 import os
-from discord.ext import commands
-#define the intents ythe bot will use
-intents = discord.Intents.default()
-intents.message_content = True #enables access to message content
-
-
-
 from dotenv import load_dotenv
-# Load environment variables from .env file
-load_dotenv()
+import asyncio
+from discord.ext import commands, tasks
+from itertools import cycle
+from discord import app_commands
+
+#import logging
+#import logging.handlers
+
+#defines the intents the bot will use
+intents = discord.Intents.all()
+intents.message_content = True #enables access to message content
+intents.members = True
 
 
-#import Bot Tokens
-from apikeys import *
-client = commands.Bot(command_prefix = '/', intents=intents)
+load_dotenv(".env")
+TOKEN: str = os.getenv("TOKEN")
 
-#event triggered when bot is ready to start working
-@client.event
+bot = commands.Bot(command_prefix='!', intents=intents)
+
+# event trigger
+@bot.event
 async def on_ready():
+    await bot.change_presence(status=discord.Status.do_not_disturb)
     print("The Bot is ready for usage")
     print("--------------------------")
+    bot.loop.create_task(change_status())
+    try:
+        synced_commands = await bot.tree.sync()
+        print(f"Synced {len(synced_commands)} commands.")
+    except Exception as e:
+        print("An error with syncing application commands has occured: ", e)
 
-#command triggered to test if bots working 
-@client.command()
-async def hello(ctx):
-   await ctx.send("Hello i am basic bot")
+async def load():
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py"):
+            await bot.load_extension(f"cogs.{filename[:-3]}")
 
+activities = [
+    discord.Game("bonksii.com"),
+    discord.Game("bonk.io"),
+    discord.Activity(type=discord.ActivityType.listening, name="PinkPantheress"),
+    discord.Activity(type=discord.ActivityType.watching, name="bonksii on Youtube")
+]
 
+# Bot status cycler
+async def change_status():
+    await bot.wait_until_ready()
+    while not bot.is_closed():
+        for activity in activities:
+            await bot.change_presence(activity=activity)
+            await asyncio.sleep(120)
 
-#Trigger goodbye message if a user uses the goodbye command
-@client.command()
-async def goodbye(ctx):
-   await ctx.send(f"bye bye {ctx.author.mention}")
+async def main():
+    async with bot:
+        await load()
+        await bot.start(TOKEN)
 
-client.run(os.getenv('TOKEN'))
+# Grab token id from the environment field 
+asyncio.run(main())
