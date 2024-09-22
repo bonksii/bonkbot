@@ -15,5 +15,7 @@ __pycache__/
 
 *.png
 
+*.yml
+
 /openjdk-16.0.1_windows-x64_bin
 /openjdk-22.0.2_windows-x64_bin
