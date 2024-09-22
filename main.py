@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 import asyncio
 from discord.ext import commands, tasks
-from itertools import cycle
+from itertools import cycle #defunct
 from discord import app_commands
 
 #import logging
@@ -24,6 +24,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.do_not_disturb)
+    print(f'Logged in as {bot.user}')
     print("The Bot is ready for usage")
     print("--------------------------")
     bot.loop.create_task(change_status())
@@ -50,7 +51,7 @@ async def change_status():
     await bot.wait_until_ready()
     while not bot.is_closed():
         for activity in activities:
-            await bot.change_presence(activity=activity)
+            await bot.change_presence(status=discord.Status.do_not_disturb, activity=activity)
             await asyncio.sleep(120)
 
 async def main():
