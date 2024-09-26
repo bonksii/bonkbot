@@ -19,3 +19,6 @@ __pycache__/
 
 /openjdk-16.0.1_windows-x64_bin
 /openjdk-22.0.2_windows-x64_bin
+logs/infos.log
+settings.py
+discordchatlogger.py
