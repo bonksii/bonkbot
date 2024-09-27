@@ -24,3 +24,5 @@ settings.py
 discordchatlogger.py
 bonkbot.code-workspace
 /logs
+/venv
+*.db
