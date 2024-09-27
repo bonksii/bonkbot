@@ -36,8 +36,7 @@ async def on_ready():
 ██╔══██╗██║   ██║██║╚██╗██║██╔═██╗ ██╔══██╗██║   ██║   ██║   
 ██████╔╝╚██████╔╝██║ ╚████║██║  ██╗██████╔╝╚██████╔╝   ██║   
 ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═════╝  ╚═════╝    ╚═╝  
-                                                                      
-\n\n {colorama.Fore.RESET}\n"""  # Actuall beginning for bot synchronisation and initialisation
+{colorama.Fore.RESET}\n"""  # Actuall beginning for bot synchronisation and initialisation
     )
     logger.info(f"User: {bot.user} (ID: {bot.user.id})")
     try:
