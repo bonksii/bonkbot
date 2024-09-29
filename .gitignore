@@ -1,12 +1,7 @@
-*.txt
-
 .env
 
-/cogs
+cogs/
 
-.json
-
-.txt
 
 *.json
 
@@ -15,14 +10,22 @@ __pycache__/
 
 *.png
 
+# YAML configurations->data serialization language for all programming languages.
 *.yml
 
-/openjdk-16.0.1_windows-x64_bin
-/openjdk-22.0.2_windows-x64_bin
+# Log files
 logs/infos.log
+/logs
+
 settings.py
 discordchatlogger.py
 bonkbot.code-workspace
-/logs
+
+
 /venv
+
+# SQLite database files
 *.db
+
+# Replaceable files (redacted bot info/TODOs)
+replaceables.txt
